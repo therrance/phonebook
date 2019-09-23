@@ -26,12 +26,16 @@ let persons = [
   }
 ];
 
+morgan.token("body", (req, res) => JSON.stringify(req.body));
+
 const generateId = () => {
   const maxId = persons.length > 0 ? Math.max(...persons.map(n => n.id)) : 0;
   return maxId + 1;
 };
 
-app.use(morgan("tiny"));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
 
 app.use(bodyParser.json());
 

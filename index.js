@@ -50,16 +50,16 @@ app.delete("/api/persons/:id", (request, response) => {
   response.status(204).end();
 });
 
-// app.get("/notes/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   const note = notes.find(note => note.id === id);
+app.get("/persons/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const person = persons.find(person => person.id === id);
 
-//   if (note) {
-//     response.json(note);
-//   } else {
-//     response.status(404).end();
-//   }
-// });
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
 
 // app.post("/notes", (request, response) => {
 //   const body = request.body;

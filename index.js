@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 
 let persons = [
   {
@@ -29,6 +30,8 @@ const generateId = () => {
   const maxId = persons.length > 0 ? Math.max(...persons.map(n => n.id)) : 0;
   return maxId + 1;
 };
+
+app.use(morgan("tiny"));
 
 app.use(bodyParser.json());
 

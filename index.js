@@ -32,7 +32,7 @@ let persons = [
 
 // app.use(bodyParser.json());
 
-app.get("/persons", (req, res) => {
+app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
 
@@ -40,6 +40,14 @@ app.get("/info", (req, res) => {
   res.send(
     `<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`
   );
+});
+
+app.delete("/api/persons/:id", (request, response) => {
+  console.log(request.params);
+  const id = Number(request.params.id);
+  persons = persons.filter(person => person.id !== id);
+
+  response.status(204).end();
 });
 
 // app.get("/notes/:id", (request, response) => {
@@ -51,13 +59,6 @@ app.get("/info", (req, res) => {
 //   } else {
 //     response.status(404).end();
 //   }
-// });
-
-// app.delete("/notes/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   notes = notes.filter(note => note.id !== id);
-
-//   response.status(204).end();
 // });
 
 // app.post("/notes", (request, response) => {

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 
 let persons = [
   {
@@ -38,6 +39,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/api/persons", (req, res) => {
   res.json(persons);

@@ -79,11 +79,12 @@ app.post("/api/persons", (request, response, next) => {
 
   person
     .save()
-    .then((savedPerson) => {
+    .then((savedPerson) => savedPerson.toJSON())
+    .then((savedAndFormatedPerson) => {
       console.log(
         `added ${savedPerson.name} number ${savedPerson.number} to phonebook`
       );
-      response.json(savedPerson);
+      response.json(savedAndFormatedPerson);
     })
     .catch((error) => next(error));
 });
@@ -111,7 +112,7 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint);
 
 const errorHander = (error, request, response, next) => {
-  console.error(error.name);
+  console.error(error.message);
 
   if (error.name === "CastError") {
     return response.status(400).send({ error: "malformatted id" });
